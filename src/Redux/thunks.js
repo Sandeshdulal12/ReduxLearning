@@ -3,7 +3,7 @@ import { createTodo, loadFail, loading, loadSucess, removeTodo,completeTodo } fr
 export const loadTodos = ()=> async (dispatch) => {
     try{
     dispatch(loading());
-    const response = await fetch('http://localhost:8080/todos',
+    const response = await fetch('http://localhost:5000/todos',
     {
         method: "GET"
     });
@@ -18,7 +18,7 @@ export const loadTodos = ()=> async (dispatch) => {
 export const addTodoReq = (text)=> async (dispatch) => {
     try{
     const body = JSON.stringify({text})
-    const response = await fetch('http://localhost:8080/todos',
+    const response = await fetch('http://localhost:5000/todos',
     {
         headers:{
             'Content-Type': 'application/json',
@@ -34,7 +34,7 @@ export const addTodoReq = (text)=> async (dispatch) => {
 
 export const removeTodoReq = (id)=> async (dispatch) => {
     try{
-    await fetch(`http://localhost:8080/todos/${id}`,{    
+    await fetch(`http://localhost:5000/todos/${id}`,{    
         method: 'delete',
     }
     );
@@ -46,7 +46,7 @@ export const removeTodoReq = (id)=> async (dispatch) => {
 
 export const completeTodoReq = (id)=> async (dispatch) => {
     try{
-    const response = await fetch(`http://localhost:8080/todos/${id}/completed`,
+    const response = await fetch(`http://localhost:5000/todos/${id}/completed`,
     {
         method: "post",
     });

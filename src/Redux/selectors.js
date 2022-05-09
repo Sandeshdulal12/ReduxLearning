@@ -1,5 +1,5 @@
-const getTodos = state => 
+export const getTodos = state => 
 state.todos.data;
 
-const getTodosLoading = state =>
+export const getTodosLoading = state =>
 state.todos.isLoading;
