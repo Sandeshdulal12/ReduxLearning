@@ -2,6 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import uuid from 'uuid';
+import path from 'path'
+
 
 var fakeTodos = [{
     id: 'ae06181d-92c2-4fed-a29d-fb53a6301eb9',
@@ -17,10 +19,24 @@ var fakeTodos = [{
     id: '2e538cc5-b734-4771-a109-dfcd204bb38b',
     text: 'Buy groceries',
     isCompleted: true,
-    createdAt: new Date(Date.now() - 86400000 * 14),
-}];
+    createdAt:new Date(Date.now() - 86400000 * 14),
+    
+},
+{
+    id: 'cdb9165d-c263-4ef6-af12-3f1271af5fb4',
+    text: 'Get together',
+    isCompleted: false,
+    createdAt: new Date(Date.now() - 86400000 * 7),
+},{
+    id: '2e338cc5-b734-4771-a109-dfcd204bb38b',
+    text: 'Buy groceries',
+    isCompleted: true,
+    createdAt:new Date(Date.now() - 86400000 * 14),}
+];
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '/build')));
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -78,5 +94,9 @@ app.delete('/todos/:id', (req, res) => {
     fakeTodos = fakeTodos.filter(todo => todo.id !== id);
     res.status(200).json(removedTodo);
 });
+
+app.get('*', (request,response) => {
+    response.sendFile(path.join(__dirname + '/build/index.html'));
+})
 
 app.listen(5000, () => console.log("Server listening on port 5000"));
